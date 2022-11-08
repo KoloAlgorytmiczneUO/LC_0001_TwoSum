@@ -3,19 +3,20 @@
 
 #include <iostream>
 #include <vector>
+#include <unordered_set>
 
 using namespace std;
 
 vector<int> twoSum(vector<int>& nums, int target) {
     vector<int> ret;
-    for (int i = 0; i < nums.size(); i++) {
-        for (int j = 0; j < nums.size(); j++) {
-            if (i != j && nums[i]+nums[j]==target) {
-                ret.push_back(i);
-                ret.push_back(j);
-                return ret;
-            }
+    unordered_set<int> met;
+    for (int i=0; i < nums.size(); i++) {
+        if (met.find(target - nums[i]) != met.end()) {
+            ret.push_back(nums[i]);
+            ret.push_back(target - nums[i]);
+            return ret;
         }
+        met.insert(nums[i]);
     }
     return ret;
 }
