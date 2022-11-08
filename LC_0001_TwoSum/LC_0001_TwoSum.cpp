@@ -4,19 +4,20 @@
 #include <iostream>
 #include <vector>
 #include <unordered_set>
+#include <unordered_map>
 
 using namespace std;
 
 vector<int> twoSum(vector<int>& nums, int target) {
     vector<int> ret;
-    unordered_set<int> met;
+    unordered_map<int, int> met;
     for (int i=0; i < nums.size(); i++) {
         if (met.find(target - nums[i]) != met.end()) {
-            ret.push_back(nums[i]);
-            ret.push_back(target - nums[i]);
+            ret.push_back(i);
+            ret.push_back(met.find(target - nums[i])->second);
             return ret;
         }
-        met.insert(nums[i]);
+        met.insert(make_pair(nums[i],i));
     }
     return ret;
 }
